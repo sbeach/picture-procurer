@@ -14,6 +14,16 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Adding the API key in the local.properties file (or any file outside source control) keeps it off the internet.
+        // However, this method still allows extraction of the key from the app binary using decompiler tools.
+        // In a real world scenario, we would obtain the key from a server,
+        // or use a proxy layer to keep the key out of the client app altogether.
+        // https://medium.com/poka-techblog/the-best-way-to-store-secrets-in-your-app-is-not-to-store-secrets-in-your-app-308a6807d3ed
+        Properties local = new Properties()
+        local.load(project.rootProject.file('local.properties').newDataInputStream())
+        def flickr_key = local.getProperty("flickr.key")
+        buildConfigField("String", "FLICKR_KEY", flickr_key)
     }
     buildTypes {
         debug {
