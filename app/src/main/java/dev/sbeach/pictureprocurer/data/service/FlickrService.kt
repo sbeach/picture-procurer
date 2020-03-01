@@ -40,6 +40,7 @@ interface FlickrService {
                 original_format, last_update, geo, tags, machine_tags, o_dims, views, media,
                 path_alias, url_sq, url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o
 
+            https://www.flickr.com/services/api/misc.urls.html
             Size Suffixes
             The letter suffixes are as follows:
                 s	small square 75x75
@@ -57,7 +58,7 @@ interface FlickrService {
 
             extras to size map:
                 url_t -> thumbnail ('t')
-                url_l -> large ('b', 'h', or 'k')
+                url_l -> large ('b' vast majority of the time; 'h' or 'k' seem to be a possibility)
                 url_o -> original ('o')
              */
             "&extras=url_t,url_l,url_o" +
