@@ -20,5 +20,5 @@ data class Photo(
     @SerializedName("url_l")
     val large: String,
     @SerializedName("url_o")
-    val original: String = ""
+    val original: String? = ""
 )
