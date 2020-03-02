@@ -10,7 +10,6 @@ import dev.sbeach.pictureprocurer.R
 import kotlinx.android.synthetic.main.fragment_photo.*
 
 private const val PHOTO_URL = "photo_url"
-private const val PHOTO_TITLE = "photo_title"
 
 /**
  * A simple [Fragment] subclass.
@@ -19,13 +18,11 @@ private const val PHOTO_TITLE = "photo_title"
  */
 class PhotoFragment : Fragment() {
     private var url: String? = null
-    private var titleText: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             url = it.getString(PHOTO_URL)
-            titleText = it.getString(PHOTO_TITLE)
         }
     }
 
@@ -34,7 +31,6 @@ class PhotoFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        title.text = titleText
         Picasso.get()
             .load(url)
             .into(photo)
@@ -51,11 +47,10 @@ class PhotoFragment : Fragment() {
          * @return A new instance of fragment PhotoFragment.
          */
         @JvmStatic
-        fun newInstance(url: String, title: String) =
+        fun newInstance(url: String) =
             PhotoFragment().apply {
                 arguments = Bundle().apply {
                     putString(PHOTO_URL, url)
-                    putString(PHOTO_TITLE, title)
                 }
             }
     }

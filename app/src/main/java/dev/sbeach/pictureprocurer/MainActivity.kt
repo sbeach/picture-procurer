@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(), SearchFragment.OnListFragmentInteracti
         else
             item.large
         supportFragmentManager.beginTransaction()
-            .add(R.id.container, PhotoFragment.newInstance(url, item.title), PhotoFragment.TAG)
+            .add(R.id.container, PhotoFragment.newInstance(url), PhotoFragment.TAG)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
     }
