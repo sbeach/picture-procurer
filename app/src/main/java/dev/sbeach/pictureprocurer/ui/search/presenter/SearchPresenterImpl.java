@@ -19,6 +19,7 @@ public class SearchPresenterImpl implements SearchPresenter {
 
     private String TAG = SearchPresenterImpl.class.getSimpleName();
     private SearchView searchView = new EmptySearchView();
+    private ServiceController serviceController = new ServiceController();
 
     public void onAttach(SearchView view) {
         searchView = view;
@@ -29,8 +30,7 @@ public class SearchPresenterImpl implements SearchPresenter {
     }
 
     public void onSearchSubmitted(String searchQuery) {
-        ServiceController controller = new ServiceController();
-        controller.photoSearch(searchQuery, 1, new SearchCallback());
+        serviceController.photoSearch(searchQuery, 1, new SearchCallback());
     }
 
     class SearchCallback implements Callback<PhotosSearch> {
@@ -40,7 +40,15 @@ public class SearchPresenterImpl implements SearchPresenter {
             if (response.body() != null) {
                 photos = response.body().getPhotos().getPhotos();
             }
-            searchView.displaySearchResults(photos);
+
+            if (photos.isEmpty()) {
+                searchView.displayNoResults();
+                searchView.hideSearchResults();
+            }
+            else {
+                searchView.hideNoResults();
+                searchView.displaySearchResults(photos);
+            }
         }
 
         public void onFailure(@NotNull Call<PhotosSearch> call, @NotNull Throwable t) {
@@ -48,12 +56,29 @@ public class SearchPresenterImpl implements SearchPresenter {
         }
     }
 
+    // This allows for asynchronous calls without fearing null pointers due to calling a detached SearchView
     private class EmptySearchView implements SearchView {
 
         private String TAG = EmptySearchView.class.getSimpleName();
 
+        @Override
         public void displaySearchResults(List<Photo> photos) {
             Log.d(TAG, "displaySearchResults");
+        }
+
+        @Override
+        public void hideSearchResults() {
+            Log.d(TAG, "hideSearchResults");
+        }
+
+        @Override
+        public void displayNoResults() {
+            Log.d(TAG, "displayNoResults");
+        }
+
+        @Override
+        public void hideNoResults() {
+            Log.d(TAG, "hideNoResults");
         }
 
         @Override

@@ -18,6 +18,15 @@
         android:inputType="text"
         />
 
+    <TextView
+        android:id="@+id/searchNoResults"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/no_results"
+        android:visibility="gone"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchResults"
         android:name="dev.sbeach.pictureprocurer.ui.main.SearchFragment"

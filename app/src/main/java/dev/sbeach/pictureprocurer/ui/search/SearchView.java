@@ -8,6 +8,12 @@ public interface SearchView {
 
     void displaySearchResults(List<Photo> photos);
 
+    void hideSearchResults();
+
+    void displayNoResults();
+
+    void hideNoResults();
+
     void displayError(String message);
 
 }

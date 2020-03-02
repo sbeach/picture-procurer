@@ -2,11 +2,13 @@ package dev.sbeach.pictureprocurer.ui.search;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -36,6 +38,7 @@ public class SearchFragment extends Fragment implements SearchView {
     private int mColumnCount = 2;
     private SearchPresenter searchPresenter;
     private EditText searchInput;
+    private TextView searchNoResults;
     private RecyclerView searchResultsRecycler;
     private OnListFragmentInteractionListener mListener;
 
@@ -69,6 +72,7 @@ public class SearchFragment extends Fragment implements SearchView {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_photo_list, container, false);
         searchInput = root.findViewById(R.id.searchInput);
+        searchNoResults = root.findViewById(R.id.searchNoResults);
         searchResultsRecycler = root.findViewById(R.id.searchResults);
 
         searchInput.requestFocus();
@@ -114,8 +118,24 @@ public class SearchFragment extends Fragment implements SearchView {
             } else {
                 searchResultsRecycler.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
+            searchResultsRecycler.setVisibility(View.VISIBLE);
             searchResultsRecycler.setAdapter(new SearchResultsAdapter(photos, mListener));
         }
+    }
+
+    @Override
+    public void hideSearchResults() {
+        searchResultsRecycler.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void displayNoResults() {
+        searchNoResults.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideNoResults() {
+        searchNoResults.setVisibility(View.GONE);
     }
 
     @Override
