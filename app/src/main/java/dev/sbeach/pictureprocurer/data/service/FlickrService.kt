@@ -1,7 +1,7 @@
 package dev.sbeach.pictureprocurer.data.service
 
 import dev.sbeach.pictureprocurer.BuildConfig
-import dev.sbeach.pictureprocurer.data.model.flickr.Photo
+import dev.sbeach.pictureprocurer.data.remote.response.flickr.PhotosSearch
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -11,7 +11,6 @@ interface FlickrService {
     // https://www.flickr.com/services/api/flickr.photos.search.html
     @GET("?method=flickr.photos.search" +
             "&api_key=${BuildConfig.FLICKR_KEY}" +
-            "&text={query}" +
             /*
             safe_search (Optional)
             Safe search setting:
@@ -63,11 +62,10 @@ interface FlickrService {
              */
             "&extras=url_t,url_l,url_o" +
             "&per_page=${ITEMS_PER_PAGE}" +
-            "&page={page}" +
             "&format=json" +
             "&nojsoncallback=1"
     )
-    fun photoSearch(@Query("query") query: String, @Query("page") page: Int): Call<List<Photo>>
+    fun photoSearch(@Query("text") text: String, @Query("page") page: Int): Call<PhotosSearch>
 
     companion object {
         const val BASE_URL = "https://www.flickr.com/services/rest/"
