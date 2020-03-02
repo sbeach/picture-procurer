@@ -2,7 +2,7 @@ package dev.sbeach.pictureprocurer.data.model.flickr
 
 import com.google.gson.annotations.SerializedName
 
-class Photo (
+data class Photo (
     @SerializedName("id")
     val id: String,
     @SerializedName("owner")
