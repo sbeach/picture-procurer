@@ -70,7 +70,7 @@ public class SearchFragment extends Fragment implements SearchView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_photo_list, container, false);
+        View root = inflater.inflate(R.layout.fragment_search, container, false);
         searchInput = root.findViewById(R.id.searchInput);
         searchNoResults = root.findViewById(R.id.searchNoResults);
         searchResultsRecycler = root.findViewById(R.id.searchResults);

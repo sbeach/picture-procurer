@@ -36,7 +36,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_photo, parent, false);
+                .inflate(R.layout.item_search_result, parent, false);
         return new ViewHolder(view);
     }
 

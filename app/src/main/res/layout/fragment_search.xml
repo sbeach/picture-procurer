@@ -34,7 +34,7 @@
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
         tools:context="dev.sbeach.pictureprocurer.ui.search.SearchFragment"
-        tools:listitem="@layout/fragment_photo"
+        tools:listitem="@layout/item_search_result"
         />
 
 </LinearLayout>
