@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), SearchFragment.OnListFragmentInteracti
             !item.original.isNullOrBlank() -> item.original
             !item.large.isNullOrBlank() -> item.large
             else -> {
-                Snackbar.make(container, "Larger size is not available for this photo", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(container, R.string.large_size_unavailable, Snackbar.LENGTH_SHORT).show()
                 return
             }
         }
