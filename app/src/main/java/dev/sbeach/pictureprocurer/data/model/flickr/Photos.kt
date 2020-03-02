@@ -11,6 +11,6 @@ data class Photos (
     val perpage: Int,
     @SerializedName("total")
     val total: String,
-    @SerializedName("photos")
+    @SerializedName("photo")
     val photos: List<Photo>
 )
