@@ -49,7 +49,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
                 .into(holder.image);
 
         holder.mView.setOnClickListener(v -> {
-            if (null != mListener) {
+            if (null != mListener && holder.mItem != null) {
                 // Notify the active callbacks interface (the activity, if the
                 // fragment is attached to one) that an item has been selected.
                 mListener.onListFragmentInteraction(holder.mItem);
