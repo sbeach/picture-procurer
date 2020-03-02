@@ -6,6 +6,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -22,14 +25,31 @@ import dev.sbeach.pictureprocurer.ui.search.SearchFragment.OnListFragmentInterac
  * {@link RecyclerView.Adapter} that can display a {@link Photo} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  */
-public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.ViewHolder> {
+public class SearchResultsAdapter extends PagedListAdapter<Photo, SearchResultsAdapter.ViewHolder> {
 
-    private final List<Photo> mValues;
+    public static final DiffUtil.ItemCallback<Photo> DIFF_CALLBACK = new DiffUtil.ItemCallback<Photo>() {
+        @Override
+        public boolean areItemsTheSame(Photo oldItem, Photo newItem) {
+            return oldItem.getId().equals(newItem.getId());
+        }
+
+        @Override
+        public boolean areContentsTheSame(Photo oldItem, Photo newItem) {
+            return (oldItem.getTitle().equals(newItem.getTitle()) && oldItem.getThumbnail().equals(newItem.getThumbnail()));
+        }
+    };
+    private final List<Photo> photos;
     private final OnListFragmentInteractionListener mListener;
 
     public SearchResultsAdapter(List<Photo> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+        super(DIFF_CALLBACK);
+        photos = items;
         mListener = listener;
+    }
+
+    public void addMorePhotos(List<Photo> newPhotos) {
+        photos.addAll(newPhotos);
+//        submitList(photos);
     }
 
     @NotNull
@@ -42,7 +62,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
+        holder.mItem = getItem(position);
         holder.title.setText(holder.mItem.getTitle());
         Picasso.get()
                 .load(holder.mItem.getThumbnail())
@@ -55,11 +75,6 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
                 mListener.onListFragmentInteraction(holder.mItem);
             }
         });
-    }
-
-    @Override
-    public int getItemCount() {
-        return mValues.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
