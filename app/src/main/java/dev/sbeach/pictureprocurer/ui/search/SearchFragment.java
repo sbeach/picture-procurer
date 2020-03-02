@@ -78,7 +78,8 @@ public class SearchFragment extends Fragment implements SearchView {
         searchInput.requestFocus();
         searchInput.setOnEditorActionListener((v, actionId, event) -> {
             boolean handled = false;
-            if (actionId == EditorInfo.IME_ACTION_SEND) {
+            if (actionId == EditorInfo.IME_ACTION_SEND
+                    || (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                 searchPresenter.onSearchSubmitted(v.getText().toString());
                 Snackbar.make(root, "Search submitted: " + v.getText(), Snackbar.LENGTH_SHORT).show();
                 handled = true;
