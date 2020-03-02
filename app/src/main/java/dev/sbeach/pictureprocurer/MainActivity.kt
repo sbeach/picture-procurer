@@ -2,10 +2,10 @@ package dev.sbeach.pictureprocurer
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.FragmentTransaction
 import dev.sbeach.pictureprocurer.data.model.flickr.Photo
+import dev.sbeach.pictureprocurer.ui.photo.PhotoFragment
 import dev.sbeach.pictureprocurer.ui.search.SearchFragment
-import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity(), SearchFragment.OnListFragmentInteractionListener {
 
@@ -19,7 +19,26 @@ class MainActivity : AppCompatActivity(), SearchFragment.OnListFragmentInteracti
         }
     }
 
-    override fun onListFragmentInteraction(item: Photo?) {
-        Snackbar.make(container, "${item?.title}", Snackbar.LENGTH_SHORT).show()
+    override fun onListFragmentInteraction(item: Photo) {
+        val url = if (item.original != null && item.original.isNotEmpty())
+            item.original
+        else
+            item.large
+        supportFragmentManager.beginTransaction()
+            .add(R.id.container, PhotoFragment.newInstance(url, item.title), PhotoFragment.TAG)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .commit()
+    }
+
+    override fun onBackPressed() {
+        val photoFragment = supportFragmentManager.findFragmentByTag(PhotoFragment.TAG)
+        if (photoFragment != null) {
+            supportFragmentManager.beginTransaction()
+                .remove(photoFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit()
+        } else {
+            super.onBackPressed()
+        }
     }
 }
