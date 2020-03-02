@@ -1,7 +1,12 @@
 package dev.sbeach.pictureprocurer
 
+import android.app.SearchManager
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.snackbar.Snackbar
 import dev.sbeach.pictureprocurer.data.model.flickr.Photo
@@ -14,11 +19,36 @@ class MainActivity : AppCompatActivity(), SearchFragment.OnListFragmentInteracti
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+        toolbar.title = ""
+        setSupportActionBar(toolbar)
+        var searchQuery = ""
+        // Verify the action and get the query
+        if (Intent.ACTION_SEARCH == intent.action) {
+            intent.getStringExtra(SearchManager.QUERY)?.also { query ->
+                searchQuery = query
+            }
+        }
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, SearchFragment.newInstance(2))
+                .replace(R.id.container, SearchFragment.newInstance(2, searchQuery))
                 .commitNow()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the options menu from XML
+        val inflater = menuInflater
+        inflater.inflate(R.menu.options_menu, menu)
+
+        // Get the SearchView and set the searchable configuration
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        (menu.findItem(R.id.menu_search).actionView as SearchView).apply {
+            // Assumes current activity is the searchable activity
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            setIconifiedByDefault(false) // Do not iconify the widget; expand it by default
+        }
+
+        return true
     }
 
     override fun onListFragmentInteraction(item: Photo) {

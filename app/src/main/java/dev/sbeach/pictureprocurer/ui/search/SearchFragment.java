@@ -35,7 +35,9 @@ import dev.sbeach.pictureprocurer.ui.search.presenter.SearchPresenterImpl;
 public class SearchFragment extends Fragment implements ISearchView {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private static final String ARG_SEARCH_QUERY = "search-query";
     private int mColumnCount = 2;
+    private String initialSearchQuery = "";
     private SearchPresenter searchPresenter;
     private EditText searchInput;
     private TextView searchNoResults;
@@ -50,10 +52,11 @@ public class SearchFragment extends Fragment implements ISearchView {
         searchPresenter = new SearchPresenterImpl();
     }
 
-    public static SearchFragment newInstance(int columnCount) {
+    public static SearchFragment newInstance(int columnCount, String searchQuery) {
         SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
+        args.putString(ARG_SEARCH_QUERY, searchQuery);
         fragment.setArguments(args);
         return fragment;
     }
@@ -64,6 +67,7 @@ public class SearchFragment extends Fragment implements ISearchView {
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            initialSearchQuery = getArguments().getString(ARG_SEARCH_QUERY);
         }
     }
 
@@ -86,6 +90,9 @@ public class SearchFragment extends Fragment implements ISearchView {
             }
             return handled;
         });
+        if (!initialSearchQuery.isEmpty()) {
+            searchPresenter.onSearchSubmitted(initialSearchQuery);
+        }
 
         return root;
     }
