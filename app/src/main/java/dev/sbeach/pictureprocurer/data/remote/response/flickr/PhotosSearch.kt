@@ -3,7 +3,7 @@ package dev.sbeach.pictureprocurer.data.remote.response.flickr
 import com.google.gson.annotations.SerializedName
 import dev.sbeach.pictureprocurer.data.model.flickr.Photos
 
-data class PhotosSearch (
+data class PhotosSearch(
     @SerializedName("photos")
     val photos: Photos,
     @SerializedName("stat")

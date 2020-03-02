@@ -2,9 +2,6 @@ package dev.sbeach.pictureprocurer.data.service;
 
 import androidx.annotation.VisibleForTesting;
 
-import java.util.List;
-
-import dev.sbeach.pictureprocurer.data.model.flickr.Photo;
 import dev.sbeach.pictureprocurer.data.remote.response.flickr.PhotosSearch;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -23,12 +20,12 @@ public class ServiceController {
         flickrService = retrofit.create(FlickrService.class);
     }
 
-    public void photoSearch(String searchQuery, int resultsPage, Callback<PhotosSearch> callback) {
-        flickrService.photoSearch(searchQuery, resultsPage).enqueue(callback);
-    }
-
     @VisibleForTesting
     ServiceController(FlickrService mockFlickrService) {
         flickrService = mockFlickrService;
+    }
+
+    public void photoSearch(String searchQuery, int resultsPage, Callback<PhotosSearch> callback) {
+        flickrService.photoSearch(searchQuery, resultsPage).enqueue(callback);
     }
 }

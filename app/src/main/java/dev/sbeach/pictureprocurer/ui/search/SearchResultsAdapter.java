@@ -1,22 +1,22 @@
 package dev.sbeach.pictureprocurer.ui.search;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 import dev.sbeach.pictureprocurer.R;
 import dev.sbeach.pictureprocurer.data.model.flickr.Photo;
 import dev.sbeach.pictureprocurer.ui.search.SearchFragment.OnListFragmentInteractionListener;
-
-import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Photo} and makes a call to the
