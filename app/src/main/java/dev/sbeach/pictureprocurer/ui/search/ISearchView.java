@@ -4,7 +4,7 @@ import java.util.List;
 
 import dev.sbeach.pictureprocurer.data.model.flickr.Photo;
 
-public interface SearchView {
+public interface ISearchView {
 
     void displaySearchResults(List<Photo> photos);
 

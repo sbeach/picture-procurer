@@ -10,7 +10,7 @@ import java.util.List;
 import dev.sbeach.pictureprocurer.data.model.flickr.Photo;
 import dev.sbeach.pictureprocurer.data.remote.response.flickr.PhotosSearch;
 import dev.sbeach.pictureprocurer.data.service.ServiceController;
-import dev.sbeach.pictureprocurer.ui.search.SearchView;
+import dev.sbeach.pictureprocurer.ui.search.ISearchView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,10 +18,10 @@ import retrofit2.Response;
 public class SearchPresenterImpl implements SearchPresenter {
 
     private String TAG = SearchPresenterImpl.class.getSimpleName();
-    private SearchView searchView = new EmptySearchView();
+    private ISearchView searchView = new EmptySearchView();
     private ServiceController serviceController = new ServiceController();
 
-    public void onAttach(SearchView view) {
+    public void onAttach(ISearchView view) {
         searchView = view;
     }
 
@@ -57,7 +57,7 @@ public class SearchPresenterImpl implements SearchPresenter {
     }
 
     // This allows for asynchronous calls without fearing null pointers due to calling a detached SearchView
-    private class EmptySearchView implements SearchView {
+    private class EmptySearchView implements ISearchView {
 
         private String TAG = EmptySearchView.class.getSimpleName();
 

@@ -1,10 +1,10 @@
 package dev.sbeach.pictureprocurer.ui.search.presenter;
 
-import dev.sbeach.pictureprocurer.ui.search.SearchView;
+import dev.sbeach.pictureprocurer.ui.search.ISearchView;
 
 public interface SearchPresenter {
 
-    void onAttach(SearchView view);
+    void onAttach(ISearchView view);
 
     void onDetach();
 

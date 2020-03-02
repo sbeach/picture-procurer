@@ -32,7 +32,7 @@ import dev.sbeach.pictureprocurer.ui.search.presenter.SearchPresenterImpl;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class SearchFragment extends Fragment implements SearchView {
+public class SearchFragment extends Fragment implements ISearchView {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 2;
