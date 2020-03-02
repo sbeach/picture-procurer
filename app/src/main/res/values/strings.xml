@@ -2,4 +2,5 @@
     <string name="app_name">Picture Procurer</string>
     <string name="no_results">No results found</string>
     <string name="large_size_unavailable">Larger size is not available for this photo</string>
+    <string name="search_hint">Search for photos</string>
 </resources>
