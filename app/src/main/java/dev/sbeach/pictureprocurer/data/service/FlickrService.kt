@@ -62,6 +62,7 @@ interface FlickrService {
              */
             "&extras=url_t,url_l,url_o" +
             "&per_page=${ITEMS_PER_PAGE}" +
+            "&sort=relevance" +
             "&format=json" +
             "&nojsoncallback=1"
     )
